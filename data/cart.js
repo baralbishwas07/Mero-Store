@@ -1,6 +1,6 @@
 export let cart = [];
 
-export function addToCart(productId) {
+export function addToCart(productId,quantitySelected) {
     let matchingItem;
     cart.forEach((item) => {
         if (productId === item.productId) {
@@ -9,12 +9,12 @@ export function addToCart(productId) {
     });
 
     if (matchingItem) {
-        matchingItem.quantity += 1;
+        matchingItem.quantity += quantitySelected;
     }
     else {
         cart.push({
-            productId: productId,
-            quantity: 1
+            productId,
+            quantity: quantitySelected
         });
     }
 }
