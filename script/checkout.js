@@ -1,5 +1,6 @@
 import { cart } from "../data/cart.js";
 import { products } from "../data/product-lists.js";
+import { formattedPrice } from "./utils/pricing.js";
 
 let cartCollectionHTML = '';
 cart.forEach((cartItem) => {
@@ -12,7 +13,7 @@ cart.forEach((cartItem) => {
             matchingItem = product;
         }
     });
-    let formattedPrice = matchingItem.price.toLocaleString('en-IN');
+    
     cartCollectionHTML += `
     <div class="cart-item-container">
         <div class="delivery-date">
@@ -28,7 +29,7 @@ cart.forEach((cartItem) => {
               ${matchingItem.name}
             </div>
             <div class="product-price">
-              ${formattedPrice}
+              ${formattedPrice(matchingItem.price)}
             </div>
             <div class="product-quantity">
               <span>

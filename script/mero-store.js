@@ -1,5 +1,6 @@
 import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/product-lists.js";
+import { formattedPrice } from "./utils/pricing.js";
 
 let productHTML = '';
 let timeoutId;
@@ -26,7 +27,6 @@ function handleAddedMessage(productId) {
 }
 
 products.forEach((product) => {
-  let formattedPrice = product.price.toLocaleString('en-IN');
   productHTML +=
     `<div class="product-container">
           <div class="product-image-container">
@@ -47,7 +47,7 @@ products.forEach((product) => {
           </div>
 
           <div class="product-price">
-            Rs. ${formattedPrice}
+            Rs. ${formattedPrice(product.price)}
           </div>
 
           <div class="product-quantity-container">
