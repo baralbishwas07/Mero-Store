@@ -24,3 +24,14 @@ export function addToCart(productId,quantitySelected) {
         });
     }
 }
+
+export function removeFromCart(productId){
+    let newCart = [];
+
+    cart.forEach((cartItem) => {
+        if(cartItem.productId !== productId){
+            newCart.push(cartItem);
+        }
+    });
+    cart = newCart;
+}
