@@ -1,15 +1,13 @@
-import { cart, addToCart } from "../data/cart.js";
+import { cart, addToCart, calculateCartQuantity } from "../data/cart.js";
 import { products } from "../data/product-lists.js";
 import { formattedPrice } from "./utils/pricing.js";
 
 let productHTML = '';
 let timeoutId;
 
+updateCartQuantity();
 function updateCartQuantity() {
-  let cartTotalQuantity = 0;
-  cart.forEach((item) => {
-    cartTotalQuantity += item.quantity;
-  })
+  const cartTotalQuantity = calculateCartQuantity();
 
   document.querySelector('.js-cart-quantity')
     .innerHTML = cartTotalQuantity;

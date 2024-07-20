@@ -1,20 +1,20 @@
-import { cart, removeFromCart } from "../data/cart.js";
+import { calculateCartQuantity, cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/product-lists.js";
 import { formattedPrice } from "./utils/pricing.js";
 
 let cartCollectionHTML = '';
 cart.forEach((cartItem) => {
-    let productId = cartItem.productId;
+  let productId = cartItem.productId;
 
-    let matchingItem;
+  let matchingItem;
 
-    products.forEach((product) => {
-        if (productId === product.id) {
-            matchingItem = product;
-        }
-    });
+  products.forEach((product) => {
+    if (productId === product.id) {
+      matchingItem = product;
+    }
+  });
 
-    cartCollectionHTML += `
+  cartCollectionHTML += `
     <div class="cart-item-container js-cart-item-container-${matchingItem.id}">
         <div class="delivery-date">
           Delivery date: Tuesday, July 23
@@ -29,7 +29,7 @@ cart.forEach((cartItem) => {
               ${matchingItem.name}
             </div>
             <div class="product-price">
-              ${formattedPrice(matchingItem.price)}
+              Rs. ${formattedPrice(matchingItem.price)}
             </div>
             <div class="product-quantity">
               <span>
@@ -96,16 +96,27 @@ cart.forEach((cartItem) => {
 
 
 document.querySelector('.js-order-summary')
-    .innerHTML = cartCollectionHTML;
+  .innerHTML = cartCollectionHTML;
 
 document.querySelectorAll('.js-delete-quantity-link')
-    .forEach((link) => {
-        link.addEventListener('click', () => {
-            const productId = link.dataset.productId;
-            removeFromCart(productId);
+  .forEach((link) => {
+    link.addEventListener('click', () => {
+      const productId = link.dataset.productId;
+      removeFromCart(productId);
 
-            const deleteContainer = document.querySelector
-                (`.js-cart-item-container-${productId}`)
-            deleteContainer.remove();
+      const deleteContainer = document.querySelector
+        (`.js-cart-item-container-${productId}`)
+      deleteContainer.remove();
+      updateCartQuantity();
     });
-    });
+  });
+
+
+function updateCartQuantity() {
+  const cartQuantity = calculateCartQuantity();
+
+  document.querySelector('.js-return-to-home')
+    .innerHTML = `${cartQuantity} items`;
+}
+
+updateCartQuantity();
