@@ -51,6 +51,7 @@ cart.forEach((cartItem) => {
               js-delete-quantity-link" data-product-id = "${matchingItem.id}">
                 Delete
               </span>
+              <p class="update-quantity-check js-update-quantity-check"></p>
             </div>
           </div>
 
@@ -157,13 +158,28 @@ document.querySelectorAll('.js-save-quantity-link')
       const saveContainer = document.querySelector(`.js-cart-item-container-${productId}`);
       saveContainer.classList.remove('is-editing-quantity');
 
-      let newQuantity = Number(document.querySelector(`.js-quantity-input-${productId}`).value);
-      updateQuantity(productId, newQuantity);
+      const updatedValue = document.querySelector(`.js-quantity-input-${productId}`);
 
-      const quantityLabel = document.querySelector(
-        `.js-quantity-label-${productId}`
-      );
-      quantityLabel.innerHTML = newQuantity;
+      let newQuantity = Number(updatedValue.value);
+      const errorMessage = document.querySelector('.js-update-quantity-check');
+
+      if (newQuantity >= 0 && newQuantity < 1000) {
+        updateQuantity(productId, newQuantity);
+
+        const quantityLabel = document.querySelector(
+          `.js-quantity-label-${productId}`
+        );
+        quantityLabel.innerHTML = newQuantity;
+        updatedValue.value = '';
+      }
+      else {
+        errorMessage.innerHTML = 'Invalid Quantity!';
+
+        setTimeout(() => {
+          errorMessage.innerHTML = '';
+        }, 2000);
+        updatedValue.value = '';
+      }
 
       updateCartQuantity();
     })
