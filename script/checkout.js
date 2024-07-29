@@ -119,12 +119,17 @@ document.querySelectorAll('.js-delete-quantity-link')
 function updateCartQuantity() {
   const cartQuantity = calculateCartQuantity();
 
-  document.querySelector('.js-return-to-home')
-    .innerHTML = `${cartQuantity} items`;
+  if (cartQuantity === '') {
+    document.querySelector('.js-return-to-home')
+      .innerHTML = `Add Now`;
+  }
+  else {
+    document.querySelector('.js-return-to-home')
+      .innerHTML = `${cartQuantity} items`;
+  }
 }
 
 updateCartQuantity();
-return-to-home
 
 // make update interactive
 document.querySelectorAll('.js-update-quantity-link')
