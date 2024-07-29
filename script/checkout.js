@@ -44,14 +44,14 @@ cart.forEach((cartItem) => {
               js-update-quantity-link" data-product-id = "${matchingItem.id}">
                 Update
               </span>
-              <input class = "quantity-input js-quantity-input-${matchingItem.id}">
+              <input class = "quantity-input js-input-quantity js-quantity-input-${matchingItem.id}" data-product-id = "${matchingItem.id}">
               <span class = "save-quantity-link link-primary 
               js-save-quantity-link" data-product-id = "${matchingItem.id}">Save</span>
               <span class="delete-quantity-link link-primary 
               js-delete-quantity-link" data-product-id = "${matchingItem.id}">
                 Delete
               </span>
-              <p class="update-quantity-check js-update-quantity-check"></p>
+              <p class="update-quantity-check js-update-quantity-check-${matchingItem.id}"></p>
             </div>
           </div>
 
@@ -149,38 +149,53 @@ document.querySelectorAll('.js-update-quantity-link')
     });
   });
 
-//make save interactive
+function handleInput(productId) {
+
+  const saveContainer = document.querySelector(`.js-cart-item-container-${productId}`);
+  saveContainer.classList.remove('is-editing-quantity');
+
+  const updatedValue = document.querySelector(`.js-quantity-input-${productId}`);
+
+  let newQuantity = Number(updatedValue.value);
+  const errorMessage = document.querySelector(`.js-update-quantity-check-${productId}`);
+
+  if (newQuantity >= 0 && newQuantity < 1000) {
+    updateQuantity(productId, newQuantity);
+
+    const quantityLabel = document.querySelector(
+      `.js-quantity-label-${productId}`
+    );
+    quantityLabel.innerHTML = newQuantity;
+    updatedValue.value = '';
+  }
+  else {
+    errorMessage.innerHTML = 'Invalid Quantity!';
+
+    setTimeout(() => {
+      errorMessage.innerHTML = '';
+    }, 2000);
+    updatedValue.value = '';
+  }
+
+  updateCartQuantity();
+}
+
+//click event
 document.querySelectorAll('.js-save-quantity-link')
   .forEach((link) => {
     link.addEventListener('click', () => {
       let productId = link.dataset.productId;
+      handleInput(productId);
+    });
+  });
 
-      const saveContainer = document.querySelector(`.js-cart-item-container-${productId}`);
-      saveContainer.classList.remove('is-editing-quantity');
-
-      const updatedValue = document.querySelector(`.js-quantity-input-${productId}`);
-
-      let newQuantity = Number(updatedValue.value);
-      const errorMessage = document.querySelector('.js-update-quantity-check');
-
-      if (newQuantity >= 0 && newQuantity < 1000) {
-        updateQuantity(productId, newQuantity);
-
-        const quantityLabel = document.querySelector(
-          `.js-quantity-label-${productId}`
-        );
-        quantityLabel.innerHTML = newQuantity;
-        updatedValue.value = '';
+//for keypress
+document.querySelectorAll('.js-input-quantity')
+  .forEach((input) => {
+    input.addEventListener('keypress', (event) => {
+      if (event.key === 'Enter') {
+        let productId = input.dataset.productId;
+        handleInput(productId);
       }
-      else {
-        errorMessage.innerHTML = 'Invalid Quantity!';
-
-        setTimeout(() => {
-          errorMessage.innerHTML = '';
-        }, 2000);
-        updatedValue.value = '';
-      }
-
-      updateCartQuantity();
-    })
-  })
+    });
+  });
