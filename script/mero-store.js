@@ -3,7 +3,7 @@ import { products } from "../data/product-lists.js";
 import { formattedPrice } from "./utils/pricing.js";
 
 let productHTML = '';
-let timeoutId;
+let timeoutIds = {};
 
 updateCartQuantity();
 function updateCartQuantity() {
@@ -17,9 +17,11 @@ function handleAddedMessage(productId) {
   const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);
   addedMessage.classList.add('show-added-to-cart');
 
-  clearTimeout(timeoutId);
+  if(timeoutIds[productId]){
+    clearTimeout(timeoutIds[productId]);
+  }
 
-  timeoutId = setTimeout(() => {
+  timeoutIds[productId] = setTimeout(() => {
     addedMessage.classList.remove('show-added-to-cart');
   }, 2000);
 }
