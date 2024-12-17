@@ -26,19 +26,19 @@ cart.forEach((cartItem) => {
 
   let deliveryOption;
 
-  deliveryOption.forEach((option) => {
+  deliveryOptions.forEach((option) => {
     if (option.id === deliveryOptionId) {
       deliveryOption = option;
     }
   });
 
   const today = dayjs();
-  today.add(
+  const deliveryDate = today.add(
     deliveryOption.deliveryDays,
     'days'
   );
 
-  const dateString = devliveryDate.format(
+  const dateString = deliveryDate.format(
     'dddd, MMMM D'
   );
 
@@ -94,12 +94,12 @@ function deliveryOptionsHTML(matchingItem, cartItem) {
   let html = '';
   deliveryOptions.forEach((deliveryOption) => {
     const today = dayjs();
-    today.add(
+    const deliveryDate = today.add(
       deliveryOption.deliveryDays,
       'days'
     );
 
-    const dateString = devliveryDate.format(
+    const dateString = deliveryDate.format(
       'dddd, MMMM D'
     );
 
