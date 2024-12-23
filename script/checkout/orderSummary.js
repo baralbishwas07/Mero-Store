@@ -5,7 +5,7 @@ import {
   updateQuantity,
   updateDeliveryOption
 } from "../../data/cart.js";
-import { getProduct, products } from "../../data/product-lists.js";
+import { getProduct } from "../../data/product-lists.js";
 import { formattedPrice } from "../utils/pricing.js";
 import dayjs from 'https://unpkg.com/dayjs@1.11.10/esm/index.js';
 import { deliveryOptions, getDeliveryOption } from '../../data/deliveryOptions.js';
