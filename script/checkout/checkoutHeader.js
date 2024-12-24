@@ -4,7 +4,7 @@ export function renderCheckoutHeader() {
 
     function cartQuantityItems(){
         const cartQuantity = calculateCartQuantity();
-        console.log(cartQuantity);
+
         if(cartQuantity === ""){
             return "Add Now";
         }else if(cartQuantity === 1){
