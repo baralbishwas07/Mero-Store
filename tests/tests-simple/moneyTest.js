@@ -1,4 +1,4 @@
-import { formattedPrice } from "../script/utils/pricing.js";
+import { formattedPrice } from "../../script/utils/pricing.js";
 
 console.log('test suite: formatCurrency')
 console.log('convert cent into npr')
