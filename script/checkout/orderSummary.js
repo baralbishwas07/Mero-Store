@@ -28,7 +28,7 @@ export function renderOrderSummary(){
     const dateString = calculateDeliveryDate(deliveryOption);
 
     cartCollectionHTML += `
-      <div class="cart-item-container js-cart-item-container-${matchingItem.id}">
+      <div class="cart-item-container js-cart-item-container js-cart-item-container-${matchingItem.id}">
           <div class="delivery-date">
             Delivery date: ${dateString}
           </div>
@@ -44,7 +44,7 @@ export function renderOrderSummary(){
               <div class="product-price">
                 Rs. ${formattedPrice(matchingItem.price)}
               </div>
-              <div class="product-quantity">
+              <div class="product-quantity js-product-quantity-${matchingItem.id}">
                 <span>
                   Quantity: <span class="quantity-label js-quantity-label-${matchingItem.id}">${cartItem.quantity}</span>
                 </span>
@@ -56,7 +56,7 @@ export function renderOrderSummary(){
                 <span class = "save-quantity-link link-primary 
                 js-save-quantity-link" data-product-id = "${matchingItem.id}">Save</span>
                 <span class="delete-quantity-link link-primary 
-                js-delete-quantity-link" data-product-id = "${matchingItem.id}">
+                js-delete-quantity-link js-delete-quantity-link-${matchingItem.id}" data-product-id = "${matchingItem.id}">
                   Delete
                 </span>
                 <p class="update-quantity-check js-update-quantity-check-${matchingItem.id}"></p>
