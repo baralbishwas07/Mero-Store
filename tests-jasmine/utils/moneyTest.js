@@ -1,4 +1,4 @@
-import { formattedPrice } from "../script/utils/pricing.js";
+import { formattedPrice } from "../../script/utils/pricing.js";
 
 describe('test suite: formatCurrency',() => {
     it('convert cent into npr',() => {
