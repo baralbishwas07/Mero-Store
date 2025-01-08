@@ -69,4 +69,24 @@ describe('test suite: renderOrderSummary', () => {
         expect(cart[0].productId).toEqual(productId2);
 
     });
+
+    it('updates the delivery option', () => {
+        console.log(`.js-delivery-option-${productId1}-3`);
+
+        document.querySelector(`.js-delivery-option-${productId1}-3`).click();
+
+        expect(document.querySelector(`.js-delivery-option-input-${productId1}-3`).checked).toEqual(true);
+
+        expect(cart.length).toEqual(2);
+
+        expect(cart[0].productId).toEqual(productId1)
+
+        expect(cart[0].deliveryOptionId).toEqual('3')
+
+        console.log(document.querySelector('.js-payment-summary-shipping'));
+
+        expect(document.querySelector('.js-payment-summary-shipping').innerText).toEqual('Rs. 1,498');
+
+        expect(document.querySelector('.js-payment-summary-total').innerText).toEqual('Rs. 11,216.7');
+    });
 });
