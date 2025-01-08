@@ -12,4 +12,12 @@ describe('test suite: formatCurrency',() => {
     it('works with decimal',() => {
         expect(formattedPrice(2000.5)).toEqual('2,000.5');
     });
+
+    it('works with decimal rounding',() => {
+        expect(formattedPrice(2000.4)).toEqual('2,000.4');
+    })
+
+    it('checks negative price', () => {
+        expect(formattedPrice(-2000)).toEqual('-2,000');
+    })
 })

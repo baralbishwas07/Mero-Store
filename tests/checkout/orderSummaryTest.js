@@ -44,11 +44,19 @@ describe('test suite: renderOrderSummary', () => {
 
         expect(document.querySelector(`.js-product-quantity-${productId2}`).innerText).toContain('Quantity: 1');
 
+        expect(document.querySelector(`.js-product-name-${productId1}`).innerText).toEqual("PUMA men's Bmw Motorsport Drift Cat Sneaker");
+
+        expect(document.querySelector(`.js-product-price-${productId1}`).innerText).toEqual("Rs. 5,400");
+
     });
 
     it('removes a product', () => {
         
         document.querySelector(`.js-delete-quantity-link-${productId1}`).click();
+
+        expect(document.querySelector(`.js-product-name-${productId2}`).innerText).toEqual('Diamond Jacquard Bath Towel Set, 2 Pack, White');
+
+        expect(document.querySelector(`.js-product-price-${productId2}`).innerText).toEqual("Rs. 3,299");
 
         expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(1);
 
