@@ -138,7 +138,30 @@ describe('testsuite: updateDeliveryOption', () => {
             quantity: 1,
             deliveryOptionId: '2'
         }]));
+    });
 
+    it('update the delivery option of a product that is not in the cart',() => {
+        loadFromStorage();
+
+        updateDeliveryOption('6f37d921-1a8b-45d6-9f2d-0e9f6e427cd4', '2');
+
+        expect(cart[0].deliveryOptionId).toEqual('1');
+
+        expect(cart[1].deliveryOptionId).toEqual('2');
+
+        expect(localStorage.setItem).toHaveBeenCalledTimes(0);
+    });
+
+    it('does nothing if a deliveryOptionId does not exist',() => {
+        loadFromStorage();
+
+        updateDeliveryOption('6f37d921-1a8b-45c6-9e2d-8e9f6e427cd4','5');
+
+        expect(cart[0].deliveryOptionId).toEqual('1');
+
+        expect(cart[1].deliveryOptionId).toEqual('2');
+
+        expect(localStorage.setItem).toHaveBeenCalledTimes(0);
 
     })
-})
+});
