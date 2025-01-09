@@ -1,3 +1,5 @@
+import { formattedPrice } from "../script/utils/pricing.js";
+
 export function getProduct(productId) {
   let matchingItem;
 
@@ -7,6 +9,30 @@ export function getProduct(productId) {
     }
   });
   return matchingItem;
+}
+
+class Product {
+  id;
+  image;
+  name;
+  rating;
+  price;
+
+  constructor(productDetails) {
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.price = productDetails.price;
+  }
+getStarsUrl(){
+  return `images/ratings/rating-${this.rating.stars * 10}.png`;
+}
+
+getPrice(){
+  return `Rs. ${formattedPrice(this.price)}`;
+}
+
 }
 
 export const products = [
@@ -718,4 +744,6 @@ export const products = [
       "mens"
     ]
   }
-];
+].map((productDetails) => {
+  return new Product(productDetails);
+});
