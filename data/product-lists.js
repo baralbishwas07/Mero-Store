@@ -71,6 +71,30 @@ export class Appliance extends Product {
   }
 }
 
+//we can fetch data using get method like this ----------------------->
+// export let products = [];
+
+// export function loadProducts(fun){
+//   const xhr = new XMLHttpRequest();
+
+//   xhr.addEventListener('load', ()=> {
+//     products = JSON.parse(xhr.response).map((productDetails) => {
+//       if(productDetails.type === 'clothing'){
+//         return new Clothing(productDetails);
+//       } else if(productDetails.type === 'appliance'){
+//         return new Appliance(productDetails);
+//       }
+//       return new Product(productDetails);
+//     });
+//     console.log(products);
+//     fun();
+//   });
+
+//   xhr.open('GET','https://supersimplebackend.dev/products');
+//   xhr.send();
+// }
+
+
 export const products = [
   {
     id: '6f37d921-1a8b-45c6-9e2d-8e9f6e427cd4',
@@ -800,7 +824,6 @@ export const products = [
   }
   return new Product(productDetails);
 });
-
 
 //js provides some built in classes
 // const date = new Date()
