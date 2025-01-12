@@ -5,6 +5,15 @@ describe('test suite: renderOrderSummary', () => {
 
     const productId1 = '6f37d921-1a8b-45c6-9e2d-8e9f6e427cd4';
     const productId2 = '8a53b080-6d40-4a65-ab26-b24ecf700bce';
+
+    /*
+    beforeAll((done) => {
+        loadProducts(() => {
+            done();
+        });
+    });
+    */
+
     beforeEach(() => {
         spyOn(localStorage, 'setItem');
 
