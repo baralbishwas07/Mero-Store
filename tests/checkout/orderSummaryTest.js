@@ -1,18 +1,18 @@
 import { renderOrderSummary } from "../../script/checkout/orderSummary.js";
 import { loadFromStorage, cart } from "../../data/cart.js";
+import { loadProducts } from "../../data/product-lists.js";
 
 describe('test suite: renderOrderSummary', () => {
 
-    const productId1 = '6f37d921-1a8b-45c6-9e2d-8e9f6e427cd4';
-    const productId2 = '8a53b080-6d40-4a65-ab26-b24ecf700bce';
+    const productId1 = 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6';
+    const productId2 = '15b6fc6f-327a-4ec4-896f-486349e85a3d';
 
-    /*
     beforeAll((done) => {
         loadProducts(() => {
             done();
         });
     });
-    */
+
 
     beforeEach(() => {
         spyOn(localStorage, 'setItem');
@@ -53,9 +53,9 @@ describe('test suite: renderOrderSummary', () => {
 
         expect(document.querySelector(`.js-product-quantity-${productId2}`).innerText).toContain('Quantity: 1');
 
-        expect(document.querySelector(`.js-product-name-${productId1}`).innerText).toEqual("PUMA men's Bmw Motorsport Drift Cat Sneaker");
+        expect(document.querySelector(`.js-product-name-${productId1}`).innerText).toEqual("Black and Gray Athletic Cotton Socks - 6 Pairs");
 
-        expect(document.querySelector(`.js-product-price-${productId1}`).innerText).toEqual("Rs. 5,400");
+        expect(document.querySelector(`.js-product-price-${productId1}`).innerText).toEqual("Rs. 1,090");
 
     });
 
@@ -63,9 +63,9 @@ describe('test suite: renderOrderSummary', () => {
         
         document.querySelector(`.js-delete-quantity-link-${productId1}`).click();
 
-        expect(document.querySelector(`.js-product-name-${productId2}`).innerText).toEqual('Diamond Jacquard Bath Towel Set, 2 Pack, White');
+        expect(document.querySelector(`.js-product-name-${productId2}`).innerText).toEqual('Intermediate Size Basketball');
 
-        expect(document.querySelector(`.js-product-price-${productId2}`).innerText).toEqual("Rs. 3,299");
+        expect(document.querySelector(`.js-product-price-${productId2}`).innerText).toEqual("Rs. 2,095");
 
         expect(document.querySelectorAll('.js-cart-item-container').length).toEqual(1);
 
@@ -96,6 +96,6 @@ describe('test suite: renderOrderSummary', () => {
 
         expect(document.querySelector('.js-payment-summary-shipping').innerText).toEqual('Rs. 1,498');
 
-        expect(document.querySelector('.js-payment-summary-total').innerText).toEqual('Rs. 11,216.7');
+        expect(document.querySelector('.js-payment-summary-total').innerText).toEqual('Rs. 5,151.3');
     });
 });
