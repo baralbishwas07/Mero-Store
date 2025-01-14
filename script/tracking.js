@@ -17,11 +17,6 @@ async function renderTrackingPage(){
     const matchingItem = getProduct(productId);
 
 
-    const orderTime = dayjs(matchingOrder.orderTime);
-    const currentTime = dayjs();
-    const deliveryTime = dayjs(getdeliveryTime(matchingOrder));
-
-
     function productInTrack(productId){
         let productInOrder;
         matchingOrder.products.forEach((product) => {
@@ -31,6 +26,11 @@ async function renderTrackingPage(){
         });
         return productInOrder;
     }
+
+    const orderTime = dayjs(matchingOrder.orderTime);
+    const currentTime = dayjs();
+    const deliveryTime = dayjs(productInTrack(productId).estimatedDeliveryTime);
+    
 
     const productQuantity = productInTrack(productId).quantity;
 
@@ -96,9 +96,11 @@ async function renderTrackingPage(){
     }
 
     function deliveryProgress(currentTime, orderTime, deliveryTime){
-        const elapsed = currentTime.diff(orderTime); 
-        const totalDuration = deliveryTime.diff(orderTime); 
+        const elapsed = currentTime.diff(orderTime,'hour', true); 
+        const totalDuration = deliveryTime.diff(orderTime,'hour', true); 
         const progress = (elapsed / totalDuration) * 100;
-        return Math.min(Math.max(progress, 0), 100);
+        // return Math.min(Math.max(progress, 0), 100);
+        return progress;
     }
+
 }

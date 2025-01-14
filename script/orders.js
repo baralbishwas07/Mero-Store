@@ -17,7 +17,6 @@ async function renderOrderPage() {
     orders.forEach((orderItems) => {
         let orderId = orderItems.id;
         let matchingOrder = getOrder(orderId);
-        console.log(matchingOrder);
         const orderTime = getOrderTime(matchingOrder);
         const products = matchingOrder.products;
 
