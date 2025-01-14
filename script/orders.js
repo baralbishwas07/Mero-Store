@@ -2,13 +2,15 @@ import { formattedPrice } from "./utils/pricing.js";
 import { getdeliveryTime, getOrder, getOrderTime } from "../data/orders.js";
 import { orders } from "../data/orders.js";
 import { getProduct, loadProductsFetch } from "../data/product-lists.js";
-import { updateCartQuantity } from "../data/cart.js";
+import { updateCartQuantity, addToCart } from "../data/cart.js";
 
 renderOrderPage();
 
 async function renderOrderPage() {
-    await loadProductsFetch();
+    let timeoutIds = {};
+
     updateCartQuantity();
+    await loadProductsFetch();
 
     let orderCollectionHtml = '';
     
@@ -36,9 +38,11 @@ async function renderOrderPage() {
                         <div class="product-name">${matchingItem.name}</div>
                         <div class="product-delivery-date">Arriving on: ${deliveryTime}</div>
                         <div class="product-quantity">Quantity: ${product.quantity}</div>
-                        <button class="buy-again-button button-primary">
+                        <button class="buy-again-button js-buy-again-button 
+                        js-buy-again-button-${matchingItem.id} button-primary"
+                        data-product-id="${matchingItem.id}">
                             <img class="buy-again-icon" src="images/icons/buy-again.png">
-                            <span class="buy-again-message">Buy it again</span>
+                            <span class="buy-again-message ">Buy it again</span>
                         </button>
                     </div>
 
@@ -74,5 +78,32 @@ async function renderOrderPage() {
         `;
     });
 
+    function handleBuyAgain(productId){
+        const buttonElement = document.querySelector(`.js-buy-again-button-${productId}`);
+
+        const originalButton = buttonElement.innerHTML;
+
+        buttonElement.innerHTML = 'Added to cart';
+
+        if(timeoutIds[productId]){
+            clearTimeout(timeoutIds[productId]);
+        }
+
+        timeoutIds[productId] = setTimeout(() => {
+            buttonElement.innerHTML = originalButton
+        },2000);
+    }
+
     document.querySelector('.js-orders-grid').innerHTML = orderCollectionHtml;
+
+    document.querySelectorAll('.js-buy-again-button')
+     .forEach((item) => {
+        item.addEventListener('click',() => {
+            const productId = item.dataset.productId;
+            addToCart(productId,1); 
+            updateCartQuantity();
+
+            handleBuyAgain(productId);
+        });
+     });
 }
