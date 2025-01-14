@@ -1,6 +1,5 @@
-import { cart, addToCart, calculateCartQuantity } from "../data/cart.js";
+import { addToCart, updateCartQuantity } from "../data/cart.js";
 import { loadProductsFetch, products } from "../data/product-lists.js";
-import { formattedPrice } from "./utils/pricing.js";
 
 
 renderProductsGrid();
@@ -10,12 +9,6 @@ async function renderProductsGrid(){
   let timeoutIds = {};
 
   updateCartQuantity();
-  function updateCartQuantity() {
-    const cartTotalQuantity = calculateCartQuantity();
-
-    document.querySelector('.js-cart-quantity')
-      .innerHTML = cartTotalQuantity;
-  }
 
   function handleAddedMessage(productId) {
     const addedMessage = document.querySelector(`.js-added-to-cart-${productId}`);

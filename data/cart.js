@@ -23,6 +23,13 @@ function saveToStorage() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+export function updateCartQuantity() {
+    const cartTotalQuantity = calculateCartQuantity();
+
+    document.querySelector('.js-cart-quantity')
+      .innerHTML = cartTotalQuantity;
+  }
+
 export function addToCart(productId, quantitySelected) {
     let matchingItem;
     cart.forEach((item) => {
