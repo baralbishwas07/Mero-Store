@@ -15,8 +15,11 @@ async function renderTrackingPage(){
 
     const matchingOrder = getOrder(orderId);
     const matchingItem = getProduct(productId);
-    const deliveryTime = dayjs(getdeliveryTime(matchingOrder)).format('dddd, MMMM D');
-    console.log(deliveryTime);
+
+
+    const orderTime = dayjs(matchingOrder.orderTime);
+    const currentTime = dayjs();
+    const deliveryTime = dayjs(getdeliveryTime(matchingOrder));
 
 
     function productInTrack(productId){
@@ -38,7 +41,7 @@ async function renderTrackingPage(){
             </a>
 
             <div class="delivery-date">
-            Arriving on ${deliveryTime}
+            Arriving on ${deliveryTime.format('dddd, MMMM D')}
             </div>
 
             <div class="product-info">
@@ -64,11 +67,38 @@ async function renderTrackingPage(){
             </div>
 
             <div class="progress-bar-container">
-            <div class="progress-bar"></div>
+            <div style="width: ${deliveryProgress(currentTime, orderTime, deliveryTime)}%" class="progress-bar"></div>
             </div>
         </div>
     `;
 
     document.querySelector('.js-track-page')
     .innerHTML = trackingPageHTML;
+
+    const deliveryStatus = deliveryProgress(currentTime, orderTime, deliveryTime);
+    setStatus(deliveryStatus); 
+
+
+    function setStatus(deliveryStatus){
+        const progressLabels = document.querySelectorAll('.progress-label');
+
+        progressLabels.forEach((label) => {
+            label.classList.remove('current-status');
+        });
+
+        if (deliveryStatus < 50) {
+            progressLabels[0].classList.add('current-status');
+        } else if (deliveryStatus < 100) {
+            progressLabels[1].classList.add('current-status');
+        } else {
+            progressLabels[2].classList.add('current-status');
+        }
+    }
+
+    function deliveryProgress(currentTime, orderTime, deliveryTime){
+        const elapsed = currentTime.diff(orderTime); 
+        const totalDuration = deliveryTime.diff(orderTime); 
+        const progress = (elapsed / totalDuration) * 100;
+        return Math.min(Math.max(progress, 0), 100);
+    }
 }
