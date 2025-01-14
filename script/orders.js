@@ -47,7 +47,7 @@ async function renderOrderPage() {
                     </div>
 
                     <div class="product-actions">
-                        <a href="tracking.html">
+                        <a href="tracking.html?orderId=${orderId}&productId=${matchingItem.id}">
                             <button class="track-package-button button-secondary">Track package</button>
                         </a>
                     </div>
