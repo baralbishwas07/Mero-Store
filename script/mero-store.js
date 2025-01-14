@@ -1,10 +1,11 @@
 import { cart, addToCart, calculateCartQuantity } from "../data/cart.js";
-import { loadProducts, products } from "../data/product-lists.js";
+import { loadProductsFetch, products } from "../data/product-lists.js";
 import { formattedPrice } from "./utils/pricing.js";
 
-loadProducts(renderProductsGrid);
 
-function renderProductsGrid(){
+renderProductsGrid();
+async function renderProductsGrid(){
+  await loadProductsFetch();
   let productHTML = '';
   let timeoutIds = {};
 
